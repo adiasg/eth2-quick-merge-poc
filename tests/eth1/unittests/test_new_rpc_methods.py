@@ -11,7 +11,6 @@ def eth1_rpc():
     Eth1Chain = builder.build(MiningChain, builder.fork_at(IstanbulVM, 0))
     Eth1Chain = builder.enable_pow_mining(Eth1Chain)
     eth1_rpc = Eth1Rpc(Eth1Chain)
-    
     return eth1_rpc
 
 

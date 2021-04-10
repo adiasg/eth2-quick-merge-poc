@@ -1,6 +1,6 @@
 IPYKERNEL_NAME = merge-spec-poc
 
-install: venv deps pyevm eth2spec ipykernel
+install: venv deps pyevm eth2spec thispackage ipykernel
 
 venv:
 	python3 -m venv venv
@@ -16,10 +16,17 @@ eth2spec: venv
 		cd ./eth2.0-specs; git checkout adiasg-quick-merge-poc; cd -
 	. venv/bin/activate; pip install ./eth2.0-specs
 
-
 ipykernel:
 	. venv/bin/activate; \
 		python3 -m ipykernel install --user --name=$(IPYKERNEL_NAME)
+
+thispackage:
+	. venv/bin/activate; \
+		pip install -e .
+
+test:
+	. venv/bin/activate; \
+		pytest tests/
 
 clean:
 	rm -rf venv eth2.0-specs
