@@ -13,7 +13,7 @@ pyevm: venv
 
 eth2spec: venv
 	git clone https://github.com/ethereum/eth2.0-specs.git; \
-		cd ./eth2.0-specs; git checkout adiasg-quick-merge-poc; cd -
+		cd ./eth2.0-specs; git checkout dev; cd -
 	. venv/bin/activate; pip install ./eth2.0-specs
 
 ipykernel:
