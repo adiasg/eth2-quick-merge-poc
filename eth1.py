@@ -94,7 +94,6 @@ class Eth1Rpc:
 
     def is_accepted_block(self, block_hash):
         try:
-            print('self.chain.get_block_by_hash(block_hash)',  self.chain.get_block_by_hash(block_hash))
             self.chain.get_block_by_hash(block_hash)
             return True
         except (BlockNotFound, HeaderNotFound):

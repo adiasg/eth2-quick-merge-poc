@@ -27,7 +27,7 @@ from beacon_helpers import (
 @pytest.fixture
 def eth1_rpc():
     # Hack BerlinVM
-    BerlinVM.consensus_class = MergedConsensus
+    # BerlinVM.consensus_class = MergedConsensus
     Eth1Chain = builder.build(
         MiningChain,
         builder.fork_at(BerlinVM, 0),

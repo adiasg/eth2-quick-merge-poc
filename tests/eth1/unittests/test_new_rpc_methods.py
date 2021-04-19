@@ -11,9 +11,11 @@ from copy import deepcopy
 @pytest.fixture
 def eth1_rpc():
     # Initialize Eth1 chain builder
-    BerlinVM.consensus_class = MergedConsensus
+    # BerlinVM.consensus_class = MergedConsensus
     Eth1Chain = builder.build(
-        MiningChain,builder.fork_at(BerlinVM, 0)
+        MiningChain,
+        builder.fork_at(BerlinVM, 0),
+        builder.disable_pow_check(),
     )
     Eth1Chain = builder.enable_pow_mining(Eth1Chain)
     eth1_rpc = Eth1Rpc(Eth1Chain)
