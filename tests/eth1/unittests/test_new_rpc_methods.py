@@ -1,14 +1,20 @@
 import pytest
-from eth1 import Eth1Rpc
+from eth1 import (
+    Eth1Rpc,
+    MergedConsensus,
+)
 from eth.chains.base import MiningChain, Chain
-from eth.vm.forks import IstanbulVM
+from eth.vm.forks import BerlinVM
 import eth.tools.builder.chain as builder
 from copy import deepcopy
 
 @pytest.fixture
 def eth1_rpc():
     # Initialize Eth1 chain builder
-    Eth1Chain = builder.build(MiningChain, builder.fork_at(IstanbulVM, 0))
+    BerlinVM.consensus_class = MergedConsensus
+    Eth1Chain = builder.build(
+        MiningChain,builder.fork_at(BerlinVM, 0)
+    )
     Eth1Chain = builder.enable_pow_mining(Eth1Chain)
     eth1_rpc = Eth1Rpc(Eth1Chain)
     return eth1_rpc

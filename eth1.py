@@ -1,10 +1,40 @@
+from typing import Iterable
+
+from eth_typing import (
+    Address,
+    Hash32,
+)
 # Eth1 (py-evm) imports
 from eth.chains.base import MiningChain, Chain
-from eth.vm.forks import IstanbulVM
+from eth.vm.forks import BerlinVM
 import eth.tools.builder.chain as builder
 from eth.exceptions import BlockNotFound, HeaderNotFound
 from eth_utils import encode_hex
 from eth.constants import GENESIS_PARENT_HASH
+from eth.abc import (
+    AtomicDatabaseAPI,
+    BlockHeaderAPI,
+    ConsensusAPI,
+)
+
+
+class MergedConsensus(ConsensusAPI):
+    def __init__(self, base_db: AtomicDatabaseAPI) -> None:
+        pass
+
+    def validate_seal(self, header: BlockHeaderAPI) -> None:
+        return
+
+    def validate_seal_extension(self,
+                                header: BlockHeaderAPI,
+                                parents: Iterable[BlockHeaderAPI]) -> None:
+        # NOTE: Do not check PoW seal
+        pass
+
+    @classmethod
+    def get_fee_recipient(cls, header: BlockHeaderAPI) -> Address:
+        return header.coinbase
+
 
 # These are the required RPC methods from the Eth1 node
 class Eth1Rpc:
@@ -64,6 +94,7 @@ class Eth1Rpc:
 
     def is_accepted_block(self, block_hash):
         try:
+            print('self.chain.get_block_by_hash(block_hash)',  self.chain.get_block_by_hash(block_hash))
             self.chain.get_block_by_hash(block_hash)
             return True
         except (BlockNotFound, HeaderNotFound):
