@@ -12,7 +12,7 @@ pyevm: venv
 	. venv/bin/activate; pip install py-evm
 
 eth2spec: venv
-	git submodule update --recursive; \
+	git submodule update --init --recursive; \
 		cd ./eth2.0-specs; git checkout dev; cd -
 	. venv/bin/activate; pip install ./eth2.0-specs
 
