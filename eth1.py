@@ -50,6 +50,9 @@ class Eth1Rpc:
     def consensus_finaliseBlock(self, block_hash):
         pass
 
+    def get_block_by_hash(self, block_hash):
+        return self.chain.get_block_by_hash(block_hash)
+
     def get_head_block(self):
         return self.chain.get_block_by_header(self.chain.get_canonical_head())
 
